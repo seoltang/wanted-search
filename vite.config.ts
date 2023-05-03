@@ -7,14 +7,21 @@ export default defineConfig({
   esbuild: {
     loader: 'tsx',
   },
-  server: { host: 'localhost', port: 3000 },
+  server: {
+    host: 'localhost',
+    port: 3000,
+    proxy: {
+      '/api/v1': {
+        target: 'https://api.clinicaltrialskorea.com/api/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/v1/, ''),
+      },
+    },
+  },
   plugins: [react()],
   resolve: {
     alias: {
-      '@Components': path.resolve(__dirname, './src/components'),
-      '@Constants': path.resolve(__dirname, './src/constants'),
-      '@Hooks': path.resolve(__dirname, './src/hooks'),
-      '@Utils': path.resolve(__dirname, './src/utils'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

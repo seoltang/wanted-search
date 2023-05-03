@@ -1,4 +1,4 @@
-import SearchSection from '@Components/SearchSection';
+import SearchSection from '@/components/SearchSection';
 
 function App() {
   return (

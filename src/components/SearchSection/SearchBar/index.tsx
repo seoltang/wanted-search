@@ -39,7 +39,7 @@ function SearchBar({ inputText, setInputText }: SearchBarProps) {
         <div className="absolute flex items-center pr-9 w-full pointer-events-none">
           <input
             type="text"
-            className="pr-1.5 w-full bg-transparent text-lg text-black pointer-events-auto focus:outline-none"
+            className="pl-px pr-1.5 w-full bg-transparent text-lg text-black pointer-events-auto focus:outline-none"
             onInput={onInput}
             value={inputText}
             spellCheck={false}
