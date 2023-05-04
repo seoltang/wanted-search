@@ -8,8 +8,8 @@ function DeleteButton({ isOnFocus, deleteText }: DeleteButtonProps) {
     <button
       type="button"
       onClick={deleteText}
-      className={`flex justify-center items-center w-5 h-5 rounded-full bg-gray-300 pointer-events-auto${
-        isOnFocus ? '' : ' opacity-0'
+      className={`flex justify-center items-center w-5 h-5 rounded-full bg-gray-300 ${
+        isOnFocus ? 'pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
       <svg

@@ -5,9 +5,10 @@ import DeleteButton from './DeleteButton';
 type SearchBarProps = {
   inputText: string;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
+  search: (input: string) => void;
 };
 
-function SearchBar({ inputText, setInputText }: SearchBarProps) {
+function SearchBar({ inputText, setInputText, search }: SearchBarProps) {
   const [isOnFocus, setIsOnFocus] = useState(false);
 
   const onInput = (event: React.FormEvent<HTMLInputElement>) => {
@@ -16,8 +17,15 @@ function SearchBar({ inputText, setInputText }: SearchBarProps) {
 
   const deleteText = () => setInputText('');
 
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    search(inputText);
+  };
+
   return (
-    <div
+    <form
+      onSubmit={onSubmit}
       className={`flex items-center w-full bg-white rounded-full border-2 ${
         isOnFocus ? 'border-blue' : 'border-white'
       }`}
@@ -49,13 +57,13 @@ function SearchBar({ inputText, setInputText }: SearchBarProps) {
       </label>
 
       <button
-        type="button"
+        type="submit"
         name="search"
         className="flex justify-center items-center mr-2 w-12 h-12 bg-blue rounded-full text-white hover:bg-darkblue"
       >
         <SearchIcon size="21" />
       </button>
-    </div>
+    </form>
   );
 }
 
