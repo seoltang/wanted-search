@@ -1,10 +1,10 @@
-import SearchBar from '@Components/SearchBar';
+import SearchSection from '@/components/SearchSection';
 
 function App() {
   return (
-    <>
-      <SearchBar />
-    </>
+    <div className="h-screen bg-gray-50">
+      <SearchSection />
+    </div>
   );
 }
 

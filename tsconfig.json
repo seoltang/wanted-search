@@ -22,10 +22,7 @@
     /* alias path */
     "baseUrl": ".",
     "paths": {
-      "@Components/*": ["./src/components/*"],
-      "@Constants/*": ["./src/constants/*"],
-      "@Hooks/*": ["./src/hooks/*"],
-      "@Utils/*": ["./src/utils/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
