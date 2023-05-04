@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { API, AUTOCOMPLETE_CACHE_KEY } from '@/constants/config';
+import getCacheExpireTime from '../getCacheExpireTime';
 
 const getAutocomplete = async (
   word: string,
@@ -8,7 +9,15 @@ const getAutocomplete = async (
   if (!word) return [];
 
   const cache = sessionStorage.getItem(`${AUTOCOMPLETE_CACHE_KEY}${word}`);
-  if (cache) return JSON.parse(cache);
+
+  if (cache) {
+    const parsedCache = JSON.parse(cache);
+    const currentDate = Date.now();
+
+    if (currentDate > parsedCache.expiresTimestamp) {
+      sessionStorage.removeItem(`${AUTOCOMPLETE_CACHE_KEY}${word}`);
+    } else return parsedCache.words;
+  }
 
   try {
     setIsLoading(true);
@@ -19,14 +28,14 @@ const getAutocomplete = async (
     setIsLoading(false);
 
     if (response.statusText === 'OK') {
-      const result = response.data;
+      const words = response.data;
 
       sessionStorage.setItem(
         `${AUTOCOMPLETE_CACHE_KEY}${word}`,
-        JSON.stringify(result),
+        JSON.stringify({ ...getCacheExpireTime(), words }),
       );
 
-      return result;
+      return words;
     }
   } catch (error) {
     if (error instanceof AxiosError) alert(error.response?.data.name);
