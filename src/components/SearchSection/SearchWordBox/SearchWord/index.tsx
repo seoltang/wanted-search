@@ -11,7 +11,7 @@ function SearchWord({ inputText, word, clickWord }: SearchWordProps) {
     <button
       type="button"
       onClick={() => clickWord(word)}
-      className="flex items-center gap-x-3 px-6 py-2 text-gray-300 hover:bg-gray-50"
+      className="flex items-center gap-x-3 px-6 py-2 w-full text-gray-300 hover:bg-gray-50"
     >
       <SearchIcon size="16" />
       <span className="text-black">

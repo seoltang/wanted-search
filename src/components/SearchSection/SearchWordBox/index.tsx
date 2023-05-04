@@ -26,6 +26,8 @@ function SearchWordBox({
 
   useEffect(() => {
     const search = async () => {
+      if (!debounceText) return;
+
       const response = await getAutocomplete(debounceText.trim(), setIsLoading);
       setAutocompleteWords(response.slice(0, MAX_DISPLAYED));
     };

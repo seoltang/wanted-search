@@ -11,10 +11,8 @@ function SearchSection() {
   const wordBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (sessionStorage.getItem(RECENT_SEARCH_WORDS_KEY))
-      setRecentSearchWords(
-        JSON.parse(sessionStorage.getItem(RECENT_SEARCH_WORDS_KEY) as string),
-      );
+    const savedRecent = sessionStorage.getItem(RECENT_SEARCH_WORDS_KEY);
+    if (savedRecent) setRecentSearchWords(JSON.parse(savedRecent));
   }, []);
 
   const search = (input: string) => {
