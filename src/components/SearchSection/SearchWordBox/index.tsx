@@ -56,7 +56,7 @@ function SearchWordBox({
               검색 중...
             </div>
           ) : autocompleteWords.length ? (
-            <ul>
+            <>
               {autocompleteWords.map(({ id, name }) => (
                 <SearchWord
                   key={id}
@@ -65,7 +65,7 @@ function SearchWordBox({
                   clickWord={clickWord}
                 />
               ))}
-            </ul>
+            </>
           ) : (
             <div className="px-6 py-2 text-gray-300">검색어 없음</div>
           )}
@@ -78,7 +78,7 @@ function SearchWordBox({
             </div>
 
             {recentSearchWords.length ? (
-              <ul className="flex flex-col pt-2">
+              <div className="flex flex-col pt-2">
                 {recentSearchWords
                   .slice(0, MAX_DISPLAYED)
                   .map((word, index) => (
@@ -88,7 +88,7 @@ function SearchWordBox({
                       clickWord={clickWord}
                     />
                   ))}
-              </ul>
+              </div>
             ) : (
               <div className="px-6  pt-5 text-gray-300">
                 최근 검색어가 없습니다
@@ -102,13 +102,14 @@ function SearchWordBox({
             </div>
             <div className="mt-4 flex items-center gap-x-2">
               {SUGGESTED_SEARCH_WORDS.map(({ id, word }) => (
-                <span
+                <button
                   key={id}
+                  type="button"
                   onClick={() => clickWord(word)}
-                  className="px-4 py-2.5 bg-lightblue text-blue rounded-full text-[0.9rem] cursor-pointer hover:bg-skyblue"
+                  className="px-4 py-2.5 bg-lightblue text-blue rounded-full text-[0.9rem] hover:bg-skyblue"
                 >
                   {word}
-                </span>
+                </button>
               ))}
             </div>
           </div>

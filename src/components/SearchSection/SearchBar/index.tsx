@@ -1,16 +1,19 @@
-import { useState } from 'react';
 import SearchIcon from '../SearchIcon';
 import DeleteButton from './DeleteButton';
 
 type SearchBarProps = {
   inputText: string;
   setInputText: React.Dispatch<React.SetStateAction<string>>;
+  isOnFocus: boolean;
   search: (input: string) => void;
 };
 
-function SearchBar({ inputText, setInputText, search }: SearchBarProps) {
-  const [isOnFocus, setIsOnFocus] = useState(false);
-
+function SearchBar({
+  inputText,
+  setInputText,
+  isOnFocus,
+  search,
+}: SearchBarProps) {
   const onInput = (event: React.FormEvent<HTMLInputElement>) => {
     setInputText(event.currentTarget.value);
   };
@@ -30,11 +33,7 @@ function SearchBar({ inputText, setInputText, search }: SearchBarProps) {
         isOnFocus ? 'border-blue' : 'border-white'
       }`}
     >
-      <label
-        onFocus={() => setIsOnFocus(true)}
-        onBlur={() => setIsOnFocus(false)}
-        className="relative flex items-center flex-1 py-5 pl-6 pr-2.5 text-gray-300"
-      >
+      <label className="relative flex items-center flex-1 py-5 pl-6 pr-2.5 text-gray-300">
         <div
           className={`flex items-center${
             isOnFocus || inputText ? ' opacity-0' : ''

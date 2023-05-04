@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RECENT_SEARCH_WORDS_KEY } from '@/constants/config';
 import SearchBar from './SearchBar';
 import SearchWordBox from './SearchWordBox';
 
 function SearchSection() {
   const [inputText, setInputText] = useState('');
+  const [isOnFocus, setIsOnFocus] = useState(false);
   const [recentSearchWords, setRecentSearchWords] = useState<string[]>([]);
+
+  const wordBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (sessionStorage.getItem(RECENT_SEARCH_WORDS_KEY))
@@ -27,6 +30,8 @@ function SearchSection() {
       sessionStorage.setItem(RECENT_SEARCH_WORDS_KEY, JSON.stringify(newWords));
       return newWords;
     });
+
+    if (wordBoxRef.current) wordBoxRef.current.className = 'hidden';
   };
 
   return (
@@ -37,18 +42,26 @@ function SearchSection() {
         온라인으로 참여하기
       </h2>
 
-      <div className="relative w-full max-w-[490px]">
+      <div
+        onFocus={() => setIsOnFocus(true)}
+        onBlur={() => setIsOnFocus(false)}
+        className="relative w-full max-w-[490px]"
+      >
         <SearchBar
           inputText={inputText}
           setInputText={setInputText}
+          isOnFocus={isOnFocus}
           search={search}
         />
-        <SearchWordBox
-          inputText={inputText}
-          setInputText={setInputText}
-          recentSearchWords={recentSearchWords}
-          search={search}
-        />
+
+        <div ref={wordBoxRef} className={isOnFocus ? '' : 'opacity-0'}>
+          <SearchWordBox
+            inputText={inputText}
+            setInputText={setInputText}
+            recentSearchWords={recentSearchWords}
+            search={search}
+          />
+        </div>
       </div>
     </section>
   );
