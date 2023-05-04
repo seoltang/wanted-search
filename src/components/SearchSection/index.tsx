@@ -29,6 +29,7 @@ function SearchSection() {
       return newWords;
     });
 
+    setIsOnFocus(false);
     if (wordBoxRef.current) wordBoxRef.current.className = 'hidden';
   };
 
